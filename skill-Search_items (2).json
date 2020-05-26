@@ -1,0 +1,378 @@
+{
+  "intents": [
+    {
+      "intent": "Cancelorder",
+      "examples": [
+        {
+          "text": "Order"
+        },
+        {
+          "text": "Can you help me to cancel my last order?"
+        },
+        {
+          "text": "I want to cancel the order"
+        },
+        {
+          "text": "Please cancel the order that was recently placed."
+        }
+      ],
+      "description": "Cancel an order."
+    },
+    {
+      "intent": "Bill",
+      "examples": [
+        {
+          "text": "Can I check my bill?"
+        },
+        {
+          "text": "Can I get another copy of my bill?"
+        }
+      ],
+      "description": "Request a billing statement."
+    },
+    {
+      "intent": "Modify",
+      "examples": [
+        {
+          "text": "I want to cancel order"
+        },
+        {
+          "text": "Can I change my order for a new device?"
+        },
+        {
+          "text": "I'd like to change some things with my most recent order"
+        },
+        {
+          "text": "Is there a way to modify a previous order?"
+        }
+      ],
+      "description": "Change or modify a placed order."
+    },
+    {
+      "intent": "Managepayment",
+      "examples": [
+        {
+          "text": "Do you accept visa?"
+        },
+        {
+          "text": "Hi, can I pay for the service by paypal?"
+        },
+        {
+          "text": "I need to change my credit card"
+        },
+        {
+          "text": "Change payment setup"
+        }
+      ],
+      "description": "Manage the method of payment for a bill."
+    },
+    {
+      "intent": "Refund",
+      "examples": [
+        {
+          "text": "Where can I get refunds?"
+        },
+        {
+          "text": "Can I get a refund on the activation fee?"
+        },
+        {
+          "text": "Arrange refund"
+        },
+        {
+          "text": "I paid my bill twice last month. can you refund my last payment?"
+        }
+      ],
+      "description": "Request a refund for a payment."
+    },
+    {
+      "intent": "Order",
+      "examples": [
+        {
+          "text": "Rice"
+        },
+        {
+          "text": "Mayonnaise"
+        },
+        {
+          "text": "Pulses"
+        },
+        {
+          "text": "Ketchup"
+        },
+        {
+          "text": "Can I order some products?"
+        },
+        {
+          "text": "Cancel existing order"
+        }
+      ],
+      "description": "Place an order."
+    },
+    {
+      "intent": "Payment",
+      "examples": [
+        {
+          "text": "I want to pay my bill with a credit card"
+        },
+        {
+          "text": "How can I pay off my balance?"
+        },
+        {
+          "text": "Can you assist me with paying my bill?"
+        }
+      ],
+      "description": "Make a payment."
+    }
+  ],
+  "entities": [
+    {
+      "entity": "Check_slot",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Your slot has been fixed for tomorrow",
+          "synonyms": [
+            "Please wait for our call"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Placeorder",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Add other items",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Confirm order",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Confirm",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Confirming the order",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Add other items",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Cancel_order",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Is there any problem with the order",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Why you want to cancel the order",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Payment",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Please make the payment via devit card",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Please make the payment via credit card",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    },
+    "from-sample": true
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Order",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Please make an order"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "values": [
+              {
+                "text": "Pulses"
+              },
+              {
+                "text": "Rice"
+              },
+              {
+                "text": "Mayonnaise"
+              },
+              {
+                "text": "Ketchup"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Order",
+      "dialog_node": "node_1_1590487703396",
+      "previous_sibling": "node_7_1590496438964"
+    },
+    {
+      "type": "standard",
+      "title": "Cancelorder",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "We will check"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "@Cancel_order",
+      "dialog_node": "node_7_1590496438964",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Payment",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Your payment is successful"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "@Payment",
+      "dialog_node": "node_5_1590487639658",
+      "previous_sibling": "node_1_1590487703396"
+    },
+    {
+      "type": "standard",
+      "title": "Anything elsei",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Please make an order by selecting the items"
+              },
+              {
+                "text": "Rice, pulses, spices"
+              },
+              {
+                "text": "Okay I will place the order and let you know the time slot"
+              },
+              {
+                "text": "Pay by credit card"
+              },
+              {
+                "text": "Thank you for shopping"
+              },
+              {
+                "text": "Anything else? "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_5_1590487639658",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Welcome to hypermart",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. How can I help you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "Welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "Search_items",
+  "language": "en",
+  "description": "To search for a particular item"
+}
